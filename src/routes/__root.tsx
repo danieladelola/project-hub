@@ -112,8 +112,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     styles: brandCss(s) ? [{ children: brandCss(s) }] : [],
     links: [
       { rel: "stylesheet", href: appCss },
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Manrope:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" },
       s.assets.favicon ? { rel: "icon", href: s.assets.favicon } : { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
     ],
     };

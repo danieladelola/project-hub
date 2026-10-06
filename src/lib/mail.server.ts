@@ -31,10 +31,10 @@ export async function sendMail({ to, subject, html, attachments }: Mail) {
 
 export async function confirmationEmail(name: string, link: string) {
   const b = await brand();
-  return `<!doctype html><html><body style="margin:0;background:#ffffff;font-family:Arial,sans-serif;color:#2a0d14">
+  return `<!doctype html><html><body style="margin:0;background:#ffffff;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;color:#2a0d14">
   <div style="max-width:520px;margin:0 auto;padding:40px 24px">
     ${b.header}
-    <h1 style="font-family:Georgia,serif;font-weight:normal;font-size:28px;margin:32px 0 12px">Confirm your email</h1>
+    <h1 style="font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-weight:bold;font-size:28px;margin:32px 0 12px">Confirm your email</h1>
     <p style="line-height:1.6;color:#5a4045">Hi ${name.replace(/[<>&"]/g, "")}, thank you for opening an account with ${b.name}. Please confirm your email address to activate your account.</p>
     <p style="margin:32px 0"><a href="${link}" style="background:${b.color};color:#ffffff;padding:14px 28px;border-radius:6px;text-decoration:none;display:inline-block">Confirm email</a></p>
     ${b.footer}<p style="font-size:12px;color:#8a7075">If you didn't create this account, you can ignore this email.</p>
@@ -45,10 +45,10 @@ const esc = (s: string) => s.replace(/[<>&"]/g, "");
 
 export async function simpleEmail(title: string, body: string, button?: { label: string; link: string }) {
   const b = await brand();
-  return `<!doctype html><html><body style="margin:0;background:#ffffff;font-family:Arial,sans-serif;color:#2a0d14">
+  return `<!doctype html><html><body style="margin:0;background:#ffffff;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;color:#2a0d14">
   <div style="max-width:520px;margin:0 auto;padding:40px 24px">
     ${b.header}
-    <h1 style="font-family:Georgia,serif;font-weight:normal;font-size:28px;margin:32px 0 12px">${esc(title)}</h1>
+    <h1 style="font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-weight:bold;font-size:28px;margin:32px 0 12px">${esc(title)}</h1>
     <p style="line-height:1.6;color:#5a4045">${body}</p>
     ${button ? `<p style="margin:32px 0"><a href="${button.link}" style="background:${b.color};color:#ffffff;padding:14px 28px;border-radius:6px;text-decoration:none;display:inline-block">${esc(button.label)}</a></p>` : ""}
     ${b.footer}<p style="font-size:12px;color:#8a7075">If you didn't request this, you can ignore this email or contact support.</p>
@@ -67,7 +67,7 @@ async function brand() {
   }
   return {
     name, color,
-    header: `${logo}<div style="font-family:Georgia,serif;font-size:22px;color:${color}">${name}</div>`,
+    header: `${logo}<div style="font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:22px;color:${color}">${name}</div>`,
     footer: c?.email.footer ? `<p style="font-size:12px;color:#8a7075;white-space:pre-line">${esc(c.email.footer)}</p>` : "",
   };
 }

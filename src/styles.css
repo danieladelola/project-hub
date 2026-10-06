@@ -9,9 +9,9 @@
   --color-teal-mid: var(--teal-mid);
   --color-teal-glow: var(--teal-glow);
   --color-teal-ink: var(--teal-ink);
-  --font-display: "DM Serif Display", Georgia, serif;
-  --font-sans: "Manrope", system-ui, sans-serif;
-  --font-market: "Sora", "Manrope", system-ui, sans-serif;
+  --font-display: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-market: "Helvetica Neue", Helvetica, Arial, sans-serif;
   --color-market: var(--market);
   --color-market-foreground: var(--market-foreground);
   --color-market-primary: var(--market-primary);
@@ -93,5 +93,5 @@
     overflow-x: hidden;
   }
   img { max-width: 100%; }
-  h1, h2, h3 { font-family: var(--font-display); font-weight: 400; }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 700; letter-spacing: -0.02em; }
 }
