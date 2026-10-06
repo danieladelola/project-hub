@@ -6,6 +6,9 @@
 
 - Money features (cards, send, convert, standing orders, local/wire transfers, receive) require admin-approved KYC: server fns call `requireVerifiedUserId`, pages wrap content in `KycGate` via `AccountPage requireKyc`, and standing orders of unverified users are skipped — why: no money movement before identity approval.
 
+- Every email link uses the fixed public address `APP_URL` in `src/lib/mail.server.ts`; `notify()` also emails the customer a copy, and staff-review events call `sendAdminAlert` — why: links must point to the live site, and customers/admins must hear about every action.
+- Signup requires email confirmation (`email_verified=false` + emailed token) before sign-in — why: verified contact for every customer.
+
 # Admin services rules
 
 - Admin tax refund approval (`adminDecideTaxRefund`, Tax refunds tab) deposits the (optionally adjusted) amount from SYSTEM:IRS:USD in the same DB transaction; customers may only claim the last 3 tax years — why: mirrors IRS refund-claim rules and keeps the ledger balanced.
