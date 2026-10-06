@@ -4,8 +4,8 @@ import bcrypt from "bcryptjs";
 import { db } from "./db.server";
 import { formatMinor } from "./money";
 
-const CURRENCY = z.enum(["USD", "EUR", "GBP", "JPY", "CHF", "CAD", "AUD", "CNY", "HKD", "SGD", "NGN"]);
-const OPEN_CURRENCY = z.enum(["USD", "EUR", "GBP", "JPY", "CHF", "CAD", "AUD", "CNY", "HKD", "SGD"]);
+const CURRENCY = z.enum(["USD"]);
+const OPEN_CURRENCY = z.enum(["USD"]);
 const id = z.number().int().positive();
 
 async function uid() {

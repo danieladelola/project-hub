@@ -1,13 +1,8 @@
 // Client-safe money helpers. Amounts are integer minor units carried as strings; no float arithmetic.
 const SYMBOLS: Record<string, string> = { USD: "$", EUR: "€", GBP: "£", CAD: "CA$", AUD: "A$", CHF: "CHF ", NGN: "₦", JPY: "¥", CNY: "CN¥", HKD: "HK$", SGD: "S$" };
-export const CURRENCY_LIST = ["USD", "EUR", "GBP", "JPY", "CHF", "CAD", "AUD", "CNY", "HKD", "SGD", "NGN"] as const;
-/** The 10 major currencies a customer can open an account in. */
-export const OPEN_CURRENCIES = [
-  { code: "USD", name: "US Dollar" }, { code: "EUR", name: "Euro" }, { code: "GBP", name: "British Pound" },
-  { code: "JPY", name: "Japanese Yen" }, { code: "CHF", name: "Swiss Franc" }, { code: "CAD", name: "Canadian Dollar" },
-  { code: "AUD", name: "Australian Dollar" }, { code: "CNY", name: "Chinese Yuan" }, { code: "HKD", name: "Hong Kong Dollar" },
-  { code: "SGD", name: "Singapore Dollar" },
-] as const;
+export const CURRENCY_LIST = ["USD"] as const;
+/** Only US Dollar accounts are offered. */
+export const OPEN_CURRENCIES = [{ code: "USD", name: "US Dollar" }] as const;
 
 export function formatMinor(minor: string | bigint, currency: string, opts: { signed?: boolean } = {}) {
   const v = typeof minor === "bigint" ? minor : BigInt(minor || "0");

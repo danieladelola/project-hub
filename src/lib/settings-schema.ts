@@ -14,7 +14,7 @@ export const SETTINGS_SCHEMA = {
     description: str(300).default("Universal Crest personal and private banking."),
     siteUrl: url, adminEmail: email, supportEmail: email.default("support@universalcrest.vip"),
     phone: str(40), company: str(120).default("Universal Crest"), address: str(300),
-    timezone: str(60).default("UTC"), currency: z.enum(["USD", "EUR", "GBP", "CAD", "NGN"]).default("USD"),
+    timezone: str(60).default("UTC"), currency: z.enum(["USD"]).default("USD"),
     dateFormat: z.enum(["MMM d, yyyy", "dd/MM/yyyy", "MM/dd/yyyy", "yyyy-MM-dd"]).default("MMM d, yyyy"),
     language: z.enum(["en", "fr", "es", "de"]).default("en"),
   }),

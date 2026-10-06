@@ -218,7 +218,7 @@ function GeneralForm({ d, onSaved }: P) {
         <Field label="Contact phone"><Input value={v.phone} onChange={(e) => set("phone", e.target.value)} /></Field>
         <Field label="Address" wide><Textarea rows={2} value={v.address} onChange={(e) => set("address", e.target.value)} /></Field>
         <Field label="Timezone"><select className={sel} value={v.timezone} onChange={(e) => set("timezone", e.target.value)}>{["UTC", ...zones.filter((z) => z !== "UTC")].map((z) => <option key={z}>{z}</option>)}</select></Field>
-        <Field label="Default currency"><select className={sel} value={v.currency} onChange={(e) => set("currency", e.target.value as typeof v.currency)}>{["USD", "EUR", "GBP", "CAD", "NGN"].map((c) => <option key={c}>{c}</option>)}</select></Field>
+        <Field label="Default currency"><select className={sel} value={v.currency} onChange={(e) => set("currency", e.target.value as typeof v.currency)}>{["USD"].map((c) => <option key={c}>{c}</option>)}</select></Field>
         <Field label="Date format"><select className={sel} value={v.dateFormat} onChange={(e) => set("dateFormat", e.target.value as typeof v.dateFormat)}>{["MMM d, yyyy", "dd/MM/yyyy", "MM/dd/yyyy", "yyyy-MM-dd"].map((c) => <option key={c}>{c}</option>)}</select></Field>
         <Field label="Default language"><select className={sel} value={v.language} onChange={(e) => set("language", e.target.value as typeof v.language)}>{[["en", "English"], ["fr", "French"], ["es", "Spanish"], ["de", "German"]].map(([k, l]) => <option key={k} value={k}>{l}</option>)}</select></Field>
       </Grid>

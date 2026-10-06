@@ -55,12 +55,12 @@ function AccountsPage() {
       <section className="relative overflow-hidden rounded-xl bg-primary p-6 text-primary-foreground shadow-lg">
         <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full border-[18px] border-primary-foreground/10" />
         <p className="font-serif text-2xl">Universal Crest</p>
-        <p className="mt-1 text-sm text-primary-foreground/80">Multi-currency banking — hold balances in up to 10 major currencies.</p>
+        <p className="mt-1 text-sm text-primary-foreground/80">All accounts are held in US Dollars (USD).</p>
         <div className="mt-4 flex flex-wrap gap-1.5">{OPEN_CURRENCIES.map((c) => <span key={c.code} className="rounded-full border border-primary-foreground/25 px-2.5 py-0.5 text-xs font-medium">{c.code}</span>)}</div>
       </section>
       <Msg msg={msg} />
       {step === "form" && (
-        <Panel title="Open a new account" description={e ? `You have ${e.open} of ${e.max} accounts open. Choose from 10 major currencies. New accounts start at a zero balance. Balances are held on Universal Crest's internal ledger.` : undefined}>
+        <Panel title="Open a new account" description={e ? `You have ${e.open} of ${e.max} accounts open. New accounts start at a zero balance. Balances are held on Universal Crest's internal ledger.` : undefined}>
           <form onSubmit={review} className="grid gap-4 sm:grid-cols-3">
             <div className="space-y-2"><Label htmlFor="nickname">Nickname</Label><Input id="nickname" name="nickname" defaultValue={draft.nickname} maxLength={40} required className="h-11" /></div>
             <div className="space-y-2"><Label htmlFor="type">Type</Label><select id="type" name="type" defaultValue={draft.type} className="h-11 w-full rounded-md border bg-background px-3 text-sm"><option value="checking">Checking / current</option><option value="savings">Savings</option></select></div>

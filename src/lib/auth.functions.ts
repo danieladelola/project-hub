@@ -94,7 +94,7 @@ export const registerUser = createServerFn({ method: "POST" })
     const type = data.accountType === "savings" ? "savings" : "checking";
     const label = type === "savings" ? "Savings" : "Checking";
     const currencies: Array<[string, string]> = [
-      ["USD", "US Dollar"], ["EUR", "Euro"], ["GBP", "British Pound"], ["CAD", "Canadian Dollar"],
+      ["USD", "US Dollar"],
     ];
     await sql.begin(async (tx: any) => {
       const rows = await tx`insert into bank_users (full_name, email, password_hash, phone, country, state, verify_token, account_type, pin_hash, email_verified)
@@ -119,7 +119,7 @@ export const registerUser = createServerFn({ method: "POST" })
   });
 
 const DEFAULT_CURRENCIES: Array<[string, string]> = [
-  ["USD", "US Dollar"], ["EUR", "Euro"], ["GBP", "British Pound"], ["CAD", "Canadian Dollar"],
+  ["USD", "US Dollar"],
 ];
 
 async function ensureDefaultAccounts(sql: any, userId: number) {
