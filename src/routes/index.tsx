@@ -61,18 +61,44 @@ const testimonials = [
 function Index() {
   return (
     <div className="min-h-screen">
-      {/* Hero — kept as designed */}
-      <section className="relative min-h-[42rem] overflow-hidden bg-ink sm:min-h-[88vh]">
-        <img src={hero} alt="Universal Crest banking lobby" width={1600} height={1104} className="absolute inset-0 h-full w-full object-cover opacity-60" />
-        <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/70 to-transparent" />
+      {/* Hero — cinematic, animated */}
+      <section className="relative flex min-h-[42rem] flex-col overflow-hidden bg-ink sm:min-h-[92vh]">
+        <div className="absolute inset-0">
+          <img src={hero} alt="Universal Crest banking lobby" width={1600} height={1104} className="h-full w-full scale-105 object-cover opacity-50 animate-ken-burns motion-reduce:transform-none" />
+          <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/70 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-ink/60" />
+        </div>
         <SiteHeader overlay />
-        <div className="relative mx-auto max-w-6xl px-4 pb-20 pt-16 sm:px-6 sm:pb-32 sm:pt-24">
-          <p className="text-xs uppercase tracking-[0.3em] text-gold">Personal · Private · Business</p>
-          <h1 className="mt-6 max-w-2xl text-4xl leading-[1.08] text-ink-foreground sm:text-5xl md:text-7xl">Wealth, guarded with care.</h1>
-          <p className="mt-6 max-w-lg text-lg text-ink-foreground/75">Modern banking built on trust. Manage your money securely, wherever you are.</p>
-          <div className="mt-10 grid max-w-sm gap-3 sm:flex">
-            <Button variant="gold" size="lg" asChild><Link to="/register">Open an account</Link></Button>
-            <Button variant="ghostLight" size="lg" asChild><Link to="/login">Online banking</Link></Button>
+        <div className="relative flex flex-1 items-center">
+          <div className="mx-auto w-full max-w-6xl px-4 pb-16 pt-14 sm:px-6 sm:pt-20">
+            <div className="flex items-center gap-4 animate-hero-rise" style={{ animationDelay: "0.15s" }}>
+              <span className="h-px w-12 bg-gold" />
+              <p className="text-[10px] font-bold uppercase tracking-[0.5em] text-gold">Personal · Private · Business</p>
+            </div>
+            <h1 className="mt-8 text-5xl leading-[0.92] tracking-tight text-ink-foreground animate-hero-rise sm:text-7xl lg:text-8xl" style={{ animationDelay: "0.35s" }}>
+              Wealth,<br />
+              <span className="bg-gradient-to-r from-gold to-ink-foreground bg-clip-text text-transparent">guarded</span><br />
+              with care.
+            </h1>
+            <p className="mt-8 max-w-lg text-lg leading-relaxed text-ink-foreground/60 animate-hero-rise" style={{ animationDelay: "0.55s" }}>
+              Modern banking built on trust. Manage your assets with tailored private solutions and absolute discretion.
+            </p>
+            <div className="mt-12 grid max-w-sm gap-3 animate-hero-rise sm:flex" style={{ animationDelay: "0.75s" }}>
+              <Button variant="gold" size="lg" asChild className="group">
+                <Link to="/register">Open an account <ArrowRight className="transition-transform duration-300 group-hover:translate-x-1" /></Link>
+              </Button>
+              <Button variant="ghostLight" size="lg" asChild><Link to="/login">Online banking</Link></Button>
+            </div>
+          </div>
+        </div>
+        <div className="relative border-t border-ink-foreground/10 animate-hero-rise" style={{ animationDelay: "0.95s" }}>
+          <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-4 py-6 sm:px-6">
+            <p className="text-[10px] uppercase tracking-[0.3em] text-ink-foreground/40">USD accounts · Bank-grade security · 24/7 support</p>
+            <div className="flex items-center gap-3 opacity-50">
+              <span className="h-1 w-1 rounded-full bg-gold" />
+              <span className="h-1 w-1 rounded-full bg-ink-foreground" />
+              <span className="h-1 w-1 rounded-full bg-ink-foreground" />
+            </div>
           </div>
         </div>
       </section>
