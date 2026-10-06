@@ -123,9 +123,6 @@ function RegisterPage() {
       >
         <ul className="space-y-2 rounded-lg border bg-muted/40 p-4 text-sm">
           <li>US Dollar account (USD)</li>
-          <li>Euro account (EUR)</li>
-          <li>British Pound account (GBP)</li>
-          <li>Canadian Dollar account (CAD)</li>
         </ul>
         <Button asChild size="lg" className="mt-6 h-11 w-full"><Link to="/login">Sign in</Link></Button>
       </AuthShell>
