@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Bell, PiggyBank, Send, ShieldCheck, Smartphone, Wallet } from "lucide-react";
 import { PageShell, PageHero, SectionHead, FeatureGrid, ProductCards } from "@/components/site/Site";
-import img from "@/assets/about.jpg";
+import img from "@/assets/personal-hero.jpg";
 
 export const Route = createFileRoute("/personal")({
   head: () => ({
