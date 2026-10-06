@@ -51,7 +51,7 @@ function AccountsPage() {
 
   return (
     <AccountPage title="Accounts" subtitle="Your Universal Crest accounts." wide
-      actions={step === "closed" && e && (e.eligible ? <Button className="min-h-11" onClick={() => setStep("form")}>Open new account</Button> : <p className="max-w-xs text-sm text-muted-foreground">{e.reason}</p>)}>
+      actions={step === "closed" && e && (e.eligible ? <Button data-header-action-mobile-hidden className="hidden min-h-11 sm:inline-flex" onClick={() => setStep("form")}>Open new account</Button> : <p data-header-action-mobile-hidden className="hidden max-w-xs text-sm text-muted-foreground sm:block">{e.reason}</p>)}>
       <section className="relative overflow-hidden rounded-xl bg-primary p-6 text-primary-foreground shadow-lg">
         <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full border-[18px] border-primary-foreground/10" />
         <p className="font-serif text-2xl">Universal Crest</p>
@@ -59,6 +59,11 @@ function AccountsPage() {
         <div className="mt-4 flex flex-wrap gap-1.5">{OPEN_CURRENCIES.map((c) => <span key={c.code} className="rounded-full border border-primary-foreground/25 px-2.5 py-0.5 text-xs font-medium">{c.code}</span>)}</div>
       </section>
       <Msg msg={msg} />
+      {step === "closed" && e && (e.eligible ? (
+        <Button className="min-h-11 w-full sm:hidden" onClick={() => setStep("form")}>Open new account</Button>
+      ) : (
+        <p className="text-sm text-muted-foreground sm:hidden">{e.reason}</p>
+      ))}
       {step === "form" && (
         <Panel title="Open a new account" description={e ? `You have ${e.open} of ${e.max} accounts open. New accounts start at a zero balance. Balances are held on Universal Crest's internal ledger.` : undefined}>
           <form onSubmit={review} className="grid gap-4 sm:grid-cols-3">
