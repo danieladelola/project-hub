@@ -150,6 +150,9 @@ export const submitKycApplication = createServerFn({ method: "POST" })
       await audit(tx, userId, userId, "kyc.submitted", { applicationId: app.id, resubmission: resub });
       await notify(tx, userId, "kyc", "Verification submitted", `We received your identity verification (${app.reference}). We'll let you know when it's been reviewed.`);
       return { ok: true as const, reference: app.reference as string };
+    }).then(async (r: any) => {
+      if (r?.ok) await (await import("./mail.server")).sendAdminAlert("KYC submitted for review", `A customer submitted identity verification ${r.reference}. Open the admin console, KYC tab, to review and approve it.`);
+      return r;
     });
   });
 
@@ -202,7 +205,7 @@ export const adminKycDecide = createServerFn({ method: "POST" })
     return sql.begin(async (tx: any) => {
       const a = (await tx`select * from bank_kyc_applications where id = ${data.id} for update`)[0];
       if (!a) return { ok: false as const, error: "Application not found." };
-      const allowed: Record<string, string[]> = { submitted: ["under_review", "verified", "rejected", "action_required"], under_review: ["verified", "rejected", "action_required"] };
+      const allowed: Record<string, string[]> = { submitted: ["under_review", "verified", "rejected", "action_required"], under_review: ["verified", "rejected", "action_required"], in_progress: ["verified", "rejected"], action_required: ["verified", "rejected"], rejected: ["verified"] };
       if (!allowed[a.status]?.includes(data.decision)) return { ok: false as const, error: `Can't change an application that is ${a.status.replace("_", " ")}.` };
       if (a.user_id === adminId) return { ok: false as const, error: "You can't review your own application." };
       await tx`update bank_kyc_applications set user_feedback = ${data.feedback || null}, internal_note = ${data.internalNote || null},

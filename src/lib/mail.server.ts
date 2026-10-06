@@ -1,3 +1,6 @@
+/** Public site address used in every email link. */
+export const APP_URL = "https://universalcrest.vip";
+
 type Mail = { to: string; subject: string; html: string; attachments?: { filename: string; content: string; mimeType: string }[] };
 
 async function cfg() {
@@ -57,10 +60,10 @@ async function brand() {
   const name = esc(c?.general.siteName || "Universal Crest");
   const color = c?.email.buttonColor || c?.branding.primaryColor || "#6b1a2b";
   let logo = "";
-  if (c?.general.siteUrl) {
+  {
     const { db } = await import("./db.server");
     const r = (await (await db())`select slot from bank_setting_assets where slot in ('email_logo','logo') order by slot = 'email_logo' desc limit 1`)[0];
-    if (r) logo = `<img src="${c.general.siteUrl.replace(/\/$/, "")}/api/brand/${r.slot}" alt="${name}" style="max-height:48px;margin-bottom:8px" />`;
+    if (r) logo = `<img src="${APP_URL}/api/brand/${r.slot}" alt="${name}" style="max-height:48px;margin-bottom:8px" />`;
   }
   return {
     name, color,
@@ -77,4 +80,14 @@ export async function sendAdminAlert(title: string, body: string) {
     if (!to) return;
     await sendMail({ to, subject: `[Admin alert] ${title}`, html: await simpleEmail(title, esc(body)) });
   } catch (e) { console.error("admin alert failed", e); }
+}
+
+/** Email a customer a copy of an in-app notification. Never throws. */
+export async function emailUserNotification(userId: number, title: string, body: string) {
+  try {
+    const { db } = await import("./db.server");
+    const u = (await (await db())`select email, status from bank_users where id = ${userId}`)[0];
+    if (!u?.email || u.status === "erased") return;
+    await sendMail({ to: u.email, subject: title, html: await simpleEmail(title, esc(body), { label: "Open online banking", link: `${APP_URL}/login` }) });
+  } catch (e) { console.error("notification email failed", e); }
 }

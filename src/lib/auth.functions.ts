@@ -90,7 +90,6 @@ export const registerUser = createServerFn({ method: "POST" })
     crypto.getRandomValues(bytes);
     const token = Array.from(bytes, (b) => b.toString(16).padStart(2, "0")).join("");
     const pinHash = await bcrypt.hash(data.pin, 10);
-    void token;
     const { createAccount } = await import("./banking.server");
     const type = data.accountType === "savings" ? "savings" : "checking";
     const label = type === "savings" ? "Savings" : "Checking";
@@ -99,7 +98,7 @@ export const registerUser = createServerFn({ method: "POST" })
     ];
     await sql.begin(async (tx: any) => {
       const rows = await tx`insert into bank_users (full_name, email, password_hash, phone, country, state, verify_token, account_type, pin_hash, email_verified)
-        values (${data.fullName}, ${email}, ${hash}, ${data.phone}, ${data.country}, ${data.state}, ${null}, ${data.accountType}, ${pinHash}, true)
+        values (${data.fullName}, ${email}, ${hash}, ${data.phone}, ${data.country}, ${data.state}, ${token}, ${data.accountType}, ${pinHash}, false)
         returning id`;
       const uid = rows[0].id;
       for (const [cur, name] of currencies) {
@@ -110,7 +109,13 @@ export const registerUser = createServerFn({ method: "POST" })
       const { sendAdminAlert } = await import("./mail.server");
       await sendAdminAlert("New customer registration", `${data.fullName} (${email}) opened a ${data.accountType} account.`);
     }
-    return { ok: true as const, emailSent: false, verified: true };
+    let emailSent = false;
+    try {
+      const { sendMail, confirmationEmail, APP_URL } = await import("./mail.server");
+      await sendMail({ to: email, subject: "Confirm your Universal Crest account", html: await confirmationEmail(data.fullName, `${APP_URL}/verify-email?token=${token}`) });
+      emailSent = true;
+    } catch (e) { console.error("Signup confirmation email failed", e); }
+    return { ok: true as const, emailSent, verified: false };
   });
 
 const DEFAULT_CURRENCIES: Array<[string, string]> = [
@@ -232,7 +237,7 @@ export const resendVerification = createServerFn({ method: "POST" })
       const { randomToken } = await import("./session.server");
       const token = randomToken(24);
       await sql`update bank_users set verify_token = ${token} where id = ${u.id}`;
-      const origin = new URL(getRequest().url).origin;
+      const { APP_URL: origin } = await import("./mail.server");
       const { sendMail, confirmationEmail } = await import("./mail.server");
       try {
         await sendMail({ to: data.email.toLowerCase(), subject: "Confirm your Universal Crest account", html: await confirmationEmail(u.full_name, `${origin}/verify-email?token=${token}`) });
@@ -253,7 +258,7 @@ export const requestPasswordReset = createServerFn({ method: "POST" })
       const { randomToken } = await import("./session.server");
       const token = randomToken(32);
       await sql`update bank_users set reset_token = ${token}, reset_expires = now() + interval '1 hour' where id = ${u.id}`;
-      const origin = new URL(getRequest().url).origin;
+      const { APP_URL: origin } = await import("./mail.server");
       const { sendMail, simpleEmail } = await import("./mail.server");
       try {
         await sendMail({

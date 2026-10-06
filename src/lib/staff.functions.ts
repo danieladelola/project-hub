@@ -63,7 +63,7 @@ export const adminForcePasswordReset = createServerFn({ method: "POST" })
     });
     if (!u) return { ok: false as const, error: "Customer not found." };
     const { getRequest } = await import("@tanstack/react-start/server");
-    const origin = new URL(getRequest().url).origin;
+    const { APP_URL: origin } = await import("./mail.server");
     const { sendMail, simpleEmail } = await import("./mail.server");
     try {
       await sendMail({ to: u.email, subject: "Action required: set a new Universal Crest password", html: await simpleEmail("Set a new password", "Your password was reset by our security team and all devices were signed out. Choose a new password using the link below. It expires in 24 hours.", { label: "Set new password", link: `${origin}/reset-password?token=${token}` }) });
@@ -282,7 +282,7 @@ export const adminAddStaff = createServerFn({ method: "POST" })
     });
     if (!res.ok) return res;
     const { getRequest } = await import("@tanstack/react-start/server");
-    const origin = new URL(getRequest().url).origin;
+    const { APP_URL: origin } = await import("./mail.server");
     const { sendMail, simpleEmail } = await import("./mail.server");
     try {
       await sendMail({ to: data.email, subject: "You've been added as Universal Crest staff", html: await simpleEmail("Set up your staff account", "You've been given access to the Universal Crest admin console. Choose your password using the link below (valid for 72 hours), then sign in on the admin page.", { label: "Choose password", link: `${origin}/reset-password?token=${token}` }) });
