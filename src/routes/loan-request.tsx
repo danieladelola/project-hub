@@ -47,7 +47,7 @@ function LoanRequestPage() {
           <div className="space-y-2"><Label htmlFor="type">Loan type</Label><select id="type" className={sel} value={f.type} onChange={up("type")}>{TYPES.map(([v, l]) => <option key={v} value={v}>{l}</option>)}</select></div>
           <div className="grid grid-cols-[1fr_7rem] gap-2">
             <div className="space-y-2"><Label htmlFor="amount">Amount</Label><Input id="amount" type="number" min={500} step="0.01" required value={f.amount} onChange={up("amount")} className="h-11" /></div>
-            <div className="space-y-2"><Label htmlFor="cur">Currency</Label><select id="cur" className={sel} value={f.currency} onChange={up("currency")}>{["USD", "EUR", "GBP", "CAD"].map((c) => <option key={c}>{c}</option>)}</select></div>
+            <div className="space-y-2"><Label htmlFor="cur">Currency</Label><select id="cur" className={sel} value={f.currency} onChange={up("currency")}>{["USD"].map((c) => <option key={c}>{c}</option>)}</select></div>
           </div>
           <div className="space-y-2"><Label htmlFor="term">Repayment term</Label><select id="term" className={sel} value={f.termMonths} onChange={up("termMonths")}>{[6, 12, 24, 36, 48, 60, 84, 120, 180, 240, 360].map((m) => <option key={m} value={m}>{m < 24 ? `${m} months` : `${m / 12} years`}</option>)}</select></div>
           <div className="space-y-2"><Label htmlFor="emp">Employment status</Label><select id="emp" className={sel} value={f.employment} onChange={up("employment")}>{EMPLOY.map(([v, l]) => <option key={v} value={v}>{l}</option>)}</select></div>

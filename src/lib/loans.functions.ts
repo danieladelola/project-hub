@@ -27,7 +27,7 @@ export const requestLoan = createServerFn({ method: "POST" })
   .inputValidator((d) => z.object({
     type: z.enum(["personal", "mortgage", "auto", "education", "business"]),
     amount: z.number().min(500, "Minimum loan is 500.").max(5_000_000),
-    currency: z.enum(["USD", "EUR", "GBP", "CAD"]),
+    currency: z.enum(["USD"]),
     termMonths: z.number().int().min(6).max(360),
     purpose: z.string().trim().min(10, "Tell us briefly what the loan is for.").max(1000),
     monthlyIncome: z.number().min(0).max(10_000_000),

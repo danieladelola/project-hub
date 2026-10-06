@@ -1,6 +1,6 @@
 import { db } from "./db.server";
 
-export const CURRENCIES = ["USD", "EUR", "GBP", "CAD", "AUD", "CHF", "NGN"] as const;
+export const CURRENCIES = ["USD"] as const;
 export const MAX_OPEN_ACCOUNTS = 5;
 /** Default daily sending cap per account, in minor units (10,000.00). Staff can override per account. */
 export const DEFAULT_DAILY_SEND_LIMIT_MINOR = 1000000n;

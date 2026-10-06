@@ -65,7 +65,6 @@ const menuGroups: Array<{ label: string; items: MenuItem[] }> = [
       { label: "Transactions", icon: ReceiptText, to: "/transactions" },
       { label: "Cards", icon: CreditCard, to: "/cards" },
       { label: "Send Money", icon: ArrowLeftRight, to: "/send" },
-      { label: "Convert Currency", icon: ArrowLeftRight, to: "/convert" },
       { label: "Standing Orders", icon: FileClock, to: "/standing-orders" },
       { label: "Local Transfer", icon: HandCoins, to: "/local-transfer" },
       { label: "International Wire", icon: Building2, to: "/wire" },

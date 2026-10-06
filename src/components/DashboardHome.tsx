@@ -69,7 +69,7 @@ export function DashboardHome() {
       <section aria-label="Quick actions" className="grid grid-cols-2 gap-2 min-[500px]:grid-cols-5">
         <QuickAction icon={Send} label="Send" to="/send" />
         <QuickAction icon={ArrowDownLeft} label="Receive" to="/receive" />
-        <QuickAction icon={ArrowLeftRight} label="Transfer" to="/convert" />
+        <QuickAction icon={ArrowLeftRight} label="Transfer" to="/send" />
         <QuickAction icon={FileText} label="Statements" to="/statements" />
         <QuickAction icon={Users} label="Beneficiaries" to="/beneficiaries" />
       </section>
