@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRightLeft, BadgePercent, Bell, CreditCard, Globe2, Headphones, LineChart, ShieldCheck, Smartphone, UserPlus, Zap, Send } from "lucide-react";
+import { ArrowRight, ArrowRightLeft, BadgePercent, Bell, CreditCard, Globe2, Headphones, LineChart, ShieldCheck, Smartphone, UserPlus, Zap, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { SiteHeader, SiteFooter, SectionHead, Eyebrow, CtaBand } from "@/components/site/Site";
+import { SiteHeader, SiteFooter, SectionHead, Eyebrow, CtaBand, Reveal } from "@/components/site/Site";
 import hero from "@/assets/hero.jpg";
 import about from "@/assets/about.jpg";
 import card from "@/assets/card.jpg";
