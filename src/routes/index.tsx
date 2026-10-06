@@ -105,14 +105,14 @@ function Index() {
 
       {/* About */}
       <section className="mx-auto grid max-w-6xl items-center gap-12 px-4 py-16 sm:px-6 sm:py-24 md:grid-cols-2 md:gap-14">
-        <div className="relative">
+        <Reveal className="relative">
           <img src={about} alt="Customer using the Universal Crest app" loading="lazy" width={1024} height={1280} className="aspect-[4/5] w-full rounded-xl object-cover" />
           <div className="absolute bottom-3 right-3 rounded-lg bg-primary px-5 py-4 text-primary-foreground shadow-xl sm:-bottom-6 sm:-right-4 sm:px-6 sm:py-5 md:-right-8">
             <p className="font-display text-3xl">24/7</p>
             <p className="text-xs uppercase tracking-widest text-primary-foreground/75">Online banking</p>
           </div>
-        </div>
-        <div>
+        </Reveal>
+        <Reveal delay={150}>
           <SectionHead eyebrow="About us" title="We're reimagining digital banking" text="Universal Crest is committed to making banking simpler, more transparent and more human — for individuals and businesses alike." />
           <div className="mt-10 space-y-6">
             {[
@@ -126,12 +126,13 @@ function Index() {
             ))}
           </div>
           <Button className="mt-10" size="lg" asChild><Link to="/personal">Learn more</Link></Button>
-        </div>
+        </Reveal>
       </section>
 
       {/* Tools */}
       <section className="bg-secondary py-16 sm:py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <Reveal>
           <SectionHead center eyebrow="Popular tools" title="Set up and exchange money in a minute" />
           <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {tools.map((t) => (
@@ -143,11 +144,13 @@ function Index() {
               </div>
             ))}
           </div>
+          </Reveal>
         </div>
       </section>
 
       {/* Global market stories */}
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
+        <Reveal>
         <SectionHead eyebrow="Covering the global market" title="Payments that drive growth" text="Higher payment success rates, lower costs, stronger fraud protection and access to global markets." />
         <div className="mt-14 grid gap-8 md:grid-cols-3">
           {stories.map((s) => (
@@ -161,10 +164,12 @@ function Index() {
             </article>
           ))}
         </div>
+        </Reveal>
       </section>
 
       {/* Why choose us */}
       <section className="bg-ink py-16 sm:py-24">
+        <Reveal>
         <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 sm:px-6 md:grid-cols-2 md:gap-14">
           <div>
             <SectionHead light eyebrow="Why choose us" title="Innovative, digital and always secure" text="We use data and technology to simplify banking — so you spend less time managing money and more time growing it." />
@@ -179,10 +184,12 @@ function Index() {
             <img src={loans} alt="" loading="lazy" width={1280} height={960} className="mt-10 aspect-square w-full rounded-xl object-cover" />
           </div>
         </div>
+        </Reveal>
       </section>
 
       {/* Benefits */}
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
+        <Reveal>
         <SectionHead center eyebrow="Your benefits" title="Your one-stop digital banking platform" />
         <div className="mt-10 grid grid-cols-2 gap-3 sm:mt-14 sm:gap-6 md:grid-cols-3 lg:grid-cols-6">
           {benefits.map((b) => (
@@ -192,11 +199,13 @@ function Index() {
             </div>
           ))}
         </div>
+        </Reveal>
       </section>
 
       {/* Exchange rates */}
       <section aria-labelledby="exchange-heading" className="bg-market py-16 font-sans text-market-foreground sm:py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <Reveal>
           <div className="max-w-3xl">
             <p className="text-[11px] font-extrabold uppercase text-market-primary">Exchange rates</p>
             <h2 id="exchange-heading" className="mt-4 font-market text-3xl font-extrabold leading-tight sm:text-4xl md:text-5xl">Exchange money worldwide<br className="hidden sm:block" /> with low fees</h2>
@@ -219,11 +228,13 @@ function Index() {
               </tbody>
             </table>
           </div>
+          </Reveal>
         </div>
       </section>
 
       {/* Testimonials */}
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
+        <Reveal>
         <SectionHead center eyebrow="Testimonials" title="What our customers say" />
         <div className="mt-14 grid gap-6 md:grid-cols-3">
           {testimonials.map((t) => (
@@ -234,6 +245,7 @@ function Index() {
             </figure>
           ))}
         </div>
+        </Reveal>
       </section>
 
       <CtaBand />
