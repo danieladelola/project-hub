@@ -50,7 +50,6 @@ const rates = [
   { name: "British Pound", code: "GBP", flag: "gb", rate: "0.7891", change: "-0.12%" },
   { name: "Japanese Yen", code: "JPY", flag: "jp", rate: "149.32", change: "+0.24%" },
   { name: "Canadian Dollar", code: "CAD", flag: "ca", rate: "1.3642", change: "-0.06%" },
-  { name: "Nigerian Naira", code: "NGN", flag: "ng", rate: "1548.20", change: "+0.31%" },
 ];
 
 const testimonials = [
