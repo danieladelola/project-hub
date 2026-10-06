@@ -2,6 +2,49 @@
 @source "../src";
 @import "tw-animate-css";
 
+@keyframes hero-rise {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes ken-burns {
+  from { transform: scale(1.05); }
+  to { transform: scale(1.15); }
+}
+
+@keyframes float-soft {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@utility animate-hero-rise {
+  animation: hero-rise 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@utility animate-ken-burns {
+  animation: ken-burns 24s ease-in-out infinite alternate;
+}
+
+@utility animate-float-soft {
+  animation: float-soft 6s ease-in-out infinite;
+}
+
+@utility reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@utility reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-hero-rise, .animate-ken-burns, .animate-float-soft { animation: none; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
