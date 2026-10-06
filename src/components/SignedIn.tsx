@@ -321,7 +321,7 @@ export function DashboardShell({ me, onLogout, title, subtitle, actions, wide = 
           <p className="text-xs font-semibold uppercase text-primary">{kicker}</p>
           <h1 className="truncate text-2xl sm:text-3xl">{title}</h1>
         </div>
-        {actions && <div className="order-last flex w-full min-w-0 justify-end sm:order-none sm:ml-auto sm:w-auto">{actions}</div>}
+        {actions && <div className="order-last flex w-full min-w-0 justify-end max-sm:[&:has([data-header-action-mobile-hidden])]:hidden sm:order-none sm:ml-auto sm:w-auto">{actions}</div>}
         <div className="flex shrink-0 items-center gap-3">
           <NotificationBell />
           <UserMenu me={me} onLogout={onLogout} />

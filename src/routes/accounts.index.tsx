@@ -51,7 +51,7 @@ function AccountsPage() {
 
   return (
     <AccountPage title="Accounts" subtitle="Your Universal Crest accounts." wide
-      actions={step === "closed" && e && (e.eligible ? <Button className="min-h-11" onClick={() => setStep("form")}>Open new account</Button> : <p className="max-w-xs text-sm text-muted-foreground">{e.reason}</p>)}>
+      actions={step === "closed" && e && (e.eligible ? <Button data-header-action-mobile-hidden className="hidden min-h-11 sm:inline-flex" onClick={() => setStep("form")}>Open new account</Button> : <p data-header-action-mobile-hidden className="hidden max-w-xs text-sm text-muted-foreground sm:block">{e.reason}</p>)}>
       <section className="relative overflow-hidden rounded-xl bg-primary p-6 text-primary-foreground shadow-lg">
         <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full border-[18px] border-primary-foreground/10" />
         <p className="font-serif text-2xl">Universal Crest</p>
