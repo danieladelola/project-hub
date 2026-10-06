@@ -3,7 +3,7 @@ import { ArrowRight, ArrowRightLeft, BadgePercent, Bell, CreditCard, Globe2, Hea
 import { Button } from "@/components/ui/button";
 import { SiteHeader, SiteFooter, SectionHead, Eyebrow, CtaBand, Reveal } from "@/components/site/Site";
 import hero from "@/assets/hero.jpg";
-import about from "@/assets/about.jpg";
+import about from "@/assets/about-new.jpg";
 import card from "@/assets/card.jpg";
 import business from "@/assets/business.jpg";
 import loans from "@/assets/loans.jpg";
