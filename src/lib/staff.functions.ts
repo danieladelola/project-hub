@@ -87,6 +87,7 @@ export const requestAccountClosure = createServerFn({ method: "POST" })
       if (a.status === "closed") return { ok: false as const, error: "This account is already closed." };
       const dup = await tx`select 1 from bank_closure_requests where account_id = ${a.id} and status = 'pending'`;
       if (dup.length) return { ok: false as const, error: "You already have a closing request for this account." };
+      setTimeout(() => { void import("./mail.server").then((m) => m.sendAdminAlert("Account closure requested", "A customer asked to close an account. Review it in the admin console, Closures tab.")); }, 1500);
       await tx`insert into bank_closure_requests (user_id, account_id, reason) values (${uid}, ${a.id}, ${data.reason})`;
       await audit(tx, uid, uid, "account.closure_requested", { accountId: a.id });
       return { ok: true as const };

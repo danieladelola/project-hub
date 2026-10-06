@@ -51,6 +51,7 @@ export const requestTaxRefund = createServerFn({ method: "POST" })
     const dup = (await sql`select 1 from bank_tax_refunds where user_id = ${userId} and tax_year = ${data.year} and status in ('pending','approved')`)[0];
     if (dup) return { ok: false as const, error: `You already have a ${data.year} refund request.` };
     await sql.begin(async (tx: any) => {
+      setTimeout(() => { void import("./mail.server").then((m) => m.sendAdminAlert("New tax refund request", "A customer submitted a tax refund request. Review it in the admin console, Tax refunds tab.")); }, 1500);
       const r = await tx`insert into bank_tax_refunds (user_id, tax_year, filing_status, ssn_last4, amount_minor, deposit_account_id, irs_form, agi_minor, withheld_minor)
         values (${userId}, ${data.year}, ${data.filing}, ${data.ssnLast4}, ${toMinor(data.amount).toString()}, ${acct.id}, ${data.form}, ${toMinor(data.agi).toString()}, ${toMinor(data.withheld).toString()}) returning id`;
       await notify(tx, userId, "tax_refund", "Tax refund request received", `Your ${data.year} IRS tax refund request is under review.`);
