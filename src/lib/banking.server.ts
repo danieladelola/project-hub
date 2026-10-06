@@ -39,6 +39,8 @@ export async function audit(sqlOrTx: any, userId: number | null, actorId: number
 
 export async function notify(sqlOrTx: any, userId: number, kind: string, title: string, body: string) {
   await sqlOrTx`insert into bank_notifications (user_id, kind, title, body) values (${userId}, ${kind}, ${title}, ${body})`;
+  // Email a copy shortly after, so it goes out once the surrounding transaction has committed.
+  setTimeout(() => { void import("./mail.server").then((m) => m.emailUserNotification(userId, title, body)); }, 1500);
 }
 
 export function mask(num: string) {

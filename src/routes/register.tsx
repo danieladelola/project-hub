@@ -45,7 +45,7 @@ function RegisterPage() {
   const [states, setStates] = useState<State[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const [done, setDone] = useState<{ email: string; sent: boolean } | null>(null);
+  const [done, setDone] = useState<{ email: string; sent: boolean; verified?: boolean } | null>(null);
 
   const [step, setStep] = useState(0);
   const [fullName, setFullName] = useState("");
@@ -106,7 +106,7 @@ function RegisterPage() {
         },
       });
       if (!res.ok) setError(res.error);
-      else setDone({ email: email.trim(), sent: res.emailSent });
+      else setDone({ email: email.trim(), sent: res.emailSent, verified: res.verified });
     } catch {
       setError("Please check your details and try again.");
     } finally {
@@ -114,7 +114,7 @@ function RegisterPage() {
     }
   }
 
-  if (done && !done.sent) {
+  if (done && !done.sent && done.verified) {
     return (
       <AuthShell
         icon={<StatusIcon tone="success"><MailCheck /></StatusIcon>}

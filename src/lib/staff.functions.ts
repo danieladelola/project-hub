@@ -63,7 +63,7 @@ export const adminForcePasswordReset = createServerFn({ method: "POST" })
     });
     if (!u) return { ok: false as const, error: "Customer not found." };
     const { getRequest } = await import("@tanstack/react-start/server");
-    const origin = new URL(getRequest().url).origin;
+    const { APP_URL: origin } = await import("./mail.server");
     const { sendMail, simpleEmail } = await import("./mail.server");
     try {
       await sendMail({ to: u.email, subject: "Action required: set a new Universal Crest password", html: await simpleEmail("Set a new password", "Your password was reset by our security team and all devices were signed out. Choose a new password using the link below. It expires in 24 hours.", { label: "Set new password", link: `${origin}/reset-password?token=${token}` }) });
@@ -87,6 +87,7 @@ export const requestAccountClosure = createServerFn({ method: "POST" })
       if (a.status === "closed") return { ok: false as const, error: "This account is already closed." };
       const dup = await tx`select 1 from bank_closure_requests where account_id = ${a.id} and status = 'pending'`;
       if (dup.length) return { ok: false as const, error: "You already have a closing request for this account." };
+      setTimeout(() => { void import("./mail.server").then((m) => m.sendAdminAlert("Account closure requested", "A customer asked to close an account. Review it in the admin console, Closures tab.")); }, 1500);
       await tx`insert into bank_closure_requests (user_id, account_id, reason) values (${uid}, ${a.id}, ${data.reason})`;
       await audit(tx, uid, uid, "account.closure_requested", { accountId: a.id });
       return { ok: true as const };
@@ -282,7 +283,7 @@ export const adminAddStaff = createServerFn({ method: "POST" })
     });
     if (!res.ok) return res;
     const { getRequest } = await import("@tanstack/react-start/server");
-    const origin = new URL(getRequest().url).origin;
+    const { APP_URL: origin } = await import("./mail.server");
     const { sendMail, simpleEmail } = await import("./mail.server");
     try {
       await sendMail({ to: data.email, subject: "You've been added as Universal Crest staff", html: await simpleEmail("Set up your staff account", "You've been given access to the Universal Crest admin console. Choose your password using the link below (valid for 72 hours), then sign in on the admin page.", { label: "Choose password", link: `${origin}/reset-password?token=${token}` }) });

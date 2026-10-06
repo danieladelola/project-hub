@@ -773,6 +773,7 @@ export const sendExternal = createServerFn({ method: "POST" })
         await notify(tx, userId, "transfer_sent", `${label} submitted`, `Your ${label.toLowerCase()} of ${amt} to ${data.beneficiaryName} is being processed (ref ${reference}).`);
         await audit(tx, userId, userId, `transfer.${data.kind}`, { txnId: Number(txn.id), from: src.id, amount: data.amount.toString() });
         await checkLowBalance(tx, src.id);
+        setTimeout(() => { void import("./mail.server").then((m) => m.sendAdminAlert(`${label} awaiting approval`, `A ${label.toLowerCase()} of ${amt} to ${data.beneficiaryName} (ref ${reference}) is pending. Complete or cancel it in the admin console.`)); }, 1500);
         return { ok: true as const, receipt: await receiptFor(tx, Number(txn.id)) };
       });
     } catch (e) {
