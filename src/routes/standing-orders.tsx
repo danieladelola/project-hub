@@ -73,7 +73,7 @@ function StandingOrdersPage() {
 
   const sel = "h-10 w-full rounded-md border bg-background px-3 text-sm";
   return (
-    <AccountPage title="Standing Orders" subtitle="Payments that repeat automatically every month.">
+    <AccountPage requireKyc title="Standing Orders" subtitle="Payments that repeat automatically every month.">
       <Panel title="New standing order" description="Sends a fixed amount to another Universal Crest account on the same day each month.">
         <form onSubmit={submit} className="grid gap-4 sm:grid-cols-2">
           <div className="space-y-1.5"><Label>From account</Label>

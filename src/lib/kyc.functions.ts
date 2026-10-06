@@ -237,3 +237,14 @@ export const adminPurgeKycDocuments = createServerFn({ method: "POST" }).handler
   }
   return { applications: apps.length, files, days };
 });
+
+/** Light check used by pages that require approved identity verification. */
+export const getKycAccess = createServerFn({ method: "GET" }).handler(async () => {
+  const s = await import("./session.server");
+  const { db } = await import("./db.server");
+  const userId = await s.requireUserId();
+  const sql = await db();
+  const app = (await sql`select status from bank_kyc_applications where user_id = ${userId} order by created_at desc limit 1`)[0];
+  const verified = await s.isKycVerified(sql, userId);
+  return { verified, status: (app?.status ?? "not_started") as string };
+});

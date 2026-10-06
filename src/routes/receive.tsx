@@ -25,7 +25,7 @@ function ReceivePage() {
   useEffect(() => { load().then(setD).catch(() => setErr(true)); }, [load]);
 
   return (
-    <AccountPage title="Receive Money" subtitle="Share these details with anyone who wants to pay you."
+    <AccountPage requireKyc title="Receive Money" subtitle="Share these details with anyone who wants to pay you."
       actions={d && d.accounts.length > 0 && <Button variant="outline" className="print:hidden" onClick={() => window.print()}><Printer className="size-4" /> Print</Button>}>
       {err ? <p className="text-destructive">We couldn't load your details. Please refresh the page.</p> : !d ? <p className="text-muted-foreground">Loading…</p> : d.accounts.length === 0 ? (
         <Panel title="No account yet"><p className="text-sm text-muted-foreground">Open an account to get account details you can share.</p><Button asChild className="mt-4 h-11"><Link to="/accounts">Open an account</Link></Button></Panel>

@@ -99,7 +99,7 @@ function CardsPage() {
   }
 
   return (
-    <AccountPage title="Virtual Cards" subtitle="Secure virtual Visa and Mastercard cards for online payments." wide
+    <AccountPage requireKyc title="Virtual Cards" subtitle="Secure virtual Visa and Mastercard cards for online payments." wide
       actions={cards && cards.length > 0 && <Button className="min-h-11 bg-teal-mid text-teal-ink hover:bg-teal-deep" onClick={() => setOpen(true)}><Plus className="h-4 w-4" /> Create Virtual Card</Button>}>
       {!cards ? <p className="text-muted-foreground">Loading…</p> : cards.length === 0 ? (
         <section className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-teal-deep to-teal-mid p-8 text-teal-ink sm:p-12">

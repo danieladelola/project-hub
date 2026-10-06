@@ -89,7 +89,7 @@ function SendPage() {
   }
 
   return (
-    <AccountPage title="Send Money" subtitle="Instant, free transfers to any Universal Crest account in the same currency." actions={<Button asChild variant="outline" className="h-auto min-h-11 max-w-full whitespace-normal text-center"><Link to="/convert">Convert between your currencies</Link></Button>}>
+    <AccountPage requireKyc title="Send Money" subtitle="Instant, free transfers to any Universal Crest account in the same currency." actions={<Button asChild variant="outline" className="h-auto min-h-11 max-w-full whitespace-normal text-center"><Link to="/convert">Convert between your currencies</Link></Button>}>
       <Msg msg={msg} />
       {!accounts ? <p className="text-muted-foreground">Loading…</p> : accounts.length === 0 ? (
         <Panel title="No account to send from">
