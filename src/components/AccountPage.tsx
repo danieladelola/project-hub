@@ -1,10 +1,11 @@
 import type { ReactNode } from "react";
 import { SignedInShell } from "@/components/SignedIn";
+import { KycGate } from "@/components/KycGate";
 
-export function AccountPage({ title, subtitle, children, wide = false, actions }: { title: string; subtitle?: string | undefined; children: ReactNode; wide?: boolean; actions?: ReactNode }) {
+export function AccountPage({ title, subtitle, children, wide = false, actions, requireKyc = false }: { title: string; subtitle?: string | undefined; children: ReactNode; wide?: boolean; actions?: ReactNode; requireKyc?: boolean }) {
   return (
     <SignedInShell title={title} subtitle={subtitle} actions={actions} wide={wide}>
-      <div className="space-y-6">{children}</div>
+      <div className="space-y-6">{requireKyc ? <KycGate>{children}</KycGate> : children}</div>
     </SignedInShell>
   );
 }

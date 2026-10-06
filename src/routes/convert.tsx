@@ -69,7 +69,7 @@ function ConvertPage() {
   }
 
   return (
-    <AccountPage title="Convert Currency" subtitle="Move money between your own currency accounts at the live market exchange rate.">
+    <AccountPage requireKyc title="Convert Currency" subtitle="Move money between your own currency accounts at the live market exchange rate.">
       <Panel title="Convert">
         {!accounts ? <p className="text-muted-foreground">Loading…</p> : accounts.length < 2 ? <p className="text-muted-foreground">You need at least two accounts in different currencies.</p> : (
           <form onSubmit={onSubmit} className="space-y-4">

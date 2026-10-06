@@ -72,6 +72,8 @@ async function runOne(sql: any, orderId: number) {
 /** Process due standing orders (no scheduler: triggered by page visits). */
 export async function processDueStandingOrders(sql: any, userId?: number) {
   const due = await sql`select id from bank_standing_orders where status = 'active' and next_run_date <= current_date
+    and coalesce((select k.status = 'verified' from bank_kyc_applications k where k.user_id = bank_standing_orders.user_id order by k.created_at desc limit 1),
+      (select u.kyc_status = 'verified' from bank_users u where u.id = bank_standing_orders.user_id), false)
     and (${userId ?? null}::int is null or user_id = ${userId ?? null}::int) order by next_run_date, id limit 50`;
   for (const r of due) {
     // Catch up on missed months one run at a time.

@@ -4,8 +4,8 @@ import bcrypt from "bcryptjs";
 
 const id = z.number().int().positive();
 async function ctx() {
-  const { requireUserId } = await import("./session.server");
-  const userId = await requireUserId();
+  const { requireVerifiedUserId } = await import("./session.server");
+  const userId = await requireVerifiedUserId();
   const { db } = await import("./db.server");
   return { userId, sql: await db() };
 }

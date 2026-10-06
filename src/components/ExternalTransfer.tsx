@@ -85,7 +85,7 @@ export function ExternalTransferPage({ kind }: { kind: Kind }) {
   ];
 
   return (
-    <AccountPage title={title} subtitle={wire ? "Send money to bank accounts worldwide via SWIFT." : "Send money to an account at another bank in your country."}>
+    <AccountPage requireKyc title={title} subtitle={wire ? "Send money to bank accounts worldwide via SWIFT." : "Send money to an account at another bank in your country."}>
       <div className="grid gap-3 sm:grid-cols-3">
         {[
           { icon: Clock, t: wire ? "1–5 business days" : "Same or next business day", d: "Typical arrival time" },

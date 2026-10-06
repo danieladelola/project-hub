@@ -4,6 +4,8 @@
 - KYC is an application workflow (`bank_kyc_applications` + `bank_kyc_history`, logic in `src/lib/kyc.functions.ts`, shared policy in `src/lib/kyc-config.ts`); only admins move it to verified/rejected/action_required, and `bank_users.kyc_status` is a synced legacy mirror — why: manual review with audit history, no auto-approval.
 - KYC files upload via `/api/kyc/upload` (magic-byte type check, 5 MB) and are served only through session-gated `/api/kyc/file/$id` with no-store headers — why: documents must never have public URLs or be cached.
 
+- Money features (cards, send, convert, standing orders, local/wire transfers, receive) require admin-approved KYC: server fns call `requireVerifiedUserId`, pages wrap content in `KycGate` via `AccountPage requireKyc`, and standing orders of unverified users are skipped — why: no money movement before identity approval.
+
 # Admin services rules
 
 - Admin tax refund approval (`adminDecideTaxRefund`, Tax refunds tab) deposits the (optionally adjusted) amount from SYSTEM:IRS:USD in the same DB transaction; customers may only claim the last 3 tax years — why: mirrors IRS refund-claim rules and keeps the ledger balanced.
