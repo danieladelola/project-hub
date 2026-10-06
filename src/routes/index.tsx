@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRightLeft, BadgePercent, Bell, CreditCard, Globe2, Headphones, LineChart, ShieldCheck, Smartphone, UserPlus, Zap, Send } from "lucide-react";
+import { ArrowRight, ArrowRightLeft, BadgePercent, Bell, CreditCard, Globe2, Headphones, LineChart, ShieldCheck, Smartphone, UserPlus, Zap, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { SiteHeader, SiteFooter, SectionHead, Eyebrow, CtaBand } from "@/components/site/Site";
+import { SiteHeader, SiteFooter, SectionHead, Eyebrow, CtaBand, Reveal } from "@/components/site/Site";
 import hero from "@/assets/hero.jpg";
 import about from "@/assets/about.jpg";
 import card from "@/assets/card.jpg";
@@ -61,32 +61,58 @@ const testimonials = [
 function Index() {
   return (
     <div className="min-h-screen">
-      {/* Hero — kept as designed */}
-      <section className="relative min-h-[42rem] overflow-hidden bg-ink sm:min-h-[88vh]">
-        <img src={hero} alt="Universal Crest banking lobby" width={1600} height={1104} className="absolute inset-0 h-full w-full object-cover opacity-60" />
-        <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/70 to-transparent" />
+      {/* Hero — cinematic, animated */}
+      <section className="relative flex min-h-[42rem] flex-col overflow-hidden bg-ink sm:min-h-[92vh]">
+        <div className="absolute inset-0">
+          <img src={hero} alt="Universal Crest banking lobby" width={1600} height={1104} className="h-full w-full scale-105 object-cover opacity-50 animate-ken-burns motion-reduce:transform-none" />
+          <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/70 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-ink/60" />
+        </div>
         <SiteHeader overlay />
-        <div className="relative mx-auto max-w-6xl px-4 pb-20 pt-16 sm:px-6 sm:pb-32 sm:pt-24">
-          <p className="text-xs uppercase tracking-[0.3em] text-gold">Personal · Private · Business</p>
-          <h1 className="mt-6 max-w-2xl text-4xl leading-[1.08] text-ink-foreground sm:text-5xl md:text-7xl">Wealth, guarded with care.</h1>
-          <p className="mt-6 max-w-lg text-lg text-ink-foreground/75">Modern banking built on trust. Manage your money securely, wherever you are.</p>
-          <div className="mt-10 grid max-w-sm gap-3 sm:flex">
-            <Button variant="gold" size="lg" asChild><Link to="/register">Open an account</Link></Button>
-            <Button variant="ghostLight" size="lg" asChild><Link to="/login">Online banking</Link></Button>
+        <div className="relative flex flex-1 items-center">
+          <div className="mx-auto w-full max-w-6xl px-4 pb-16 pt-14 sm:px-6 sm:pt-20">
+            <div className="flex items-center gap-4 animate-hero-rise" style={{ animationDelay: "0.15s" }}>
+              <span className="h-px w-12 bg-gold" />
+              <p className="text-[10px] font-bold uppercase tracking-[0.5em] text-gold">Personal · Private · Business</p>
+            </div>
+            <h1 className="mt-8 text-5xl leading-[0.92] tracking-tight text-ink-foreground animate-hero-rise sm:text-7xl lg:text-8xl" style={{ animationDelay: "0.35s" }}>
+              Wealth,<br />
+              <span className="bg-gradient-to-r from-gold to-ink-foreground bg-clip-text text-transparent">guarded</span><br />
+              with care.
+            </h1>
+            <p className="mt-8 max-w-lg text-lg leading-relaxed text-ink-foreground/60 animate-hero-rise" style={{ animationDelay: "0.55s" }}>
+              Modern banking built on trust. Manage your assets with tailored private solutions and absolute discretion.
+            </p>
+            <div className="mt-12 grid max-w-sm gap-3 animate-hero-rise sm:flex" style={{ animationDelay: "0.75s" }}>
+              <Button variant="gold" size="lg" asChild className="group">
+                <Link to="/register">Open an account <ArrowRight className="transition-transform duration-300 group-hover:translate-x-1" /></Link>
+              </Button>
+              <Button variant="ghostLight" size="lg" asChild><Link to="/login">Online banking</Link></Button>
+            </div>
+          </div>
+        </div>
+        <div className="relative border-t border-ink-foreground/10 animate-hero-rise" style={{ animationDelay: "0.95s" }}>
+          <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-4 py-6 sm:px-6">
+            <p className="text-[10px] uppercase tracking-[0.3em] text-ink-foreground/40">USD accounts · Bank-grade security · 24/7 support</p>
+            <div className="flex items-center gap-3 opacity-50">
+              <span className="h-1 w-1 rounded-full bg-gold" />
+              <span className="h-1 w-1 rounded-full bg-ink-foreground" />
+              <span className="h-1 w-1 rounded-full bg-ink-foreground" />
+            </div>
           </div>
         </div>
       </section>
 
       {/* About */}
       <section className="mx-auto grid max-w-6xl items-center gap-12 px-4 py-16 sm:px-6 sm:py-24 md:grid-cols-2 md:gap-14">
-        <div className="relative">
+        <Reveal className="relative">
           <img src={about} alt="Customer using the Universal Crest app" loading="lazy" width={1024} height={1280} className="aspect-[4/5] w-full rounded-xl object-cover" />
           <div className="absolute bottom-3 right-3 rounded-lg bg-primary px-5 py-4 text-primary-foreground shadow-xl sm:-bottom-6 sm:-right-4 sm:px-6 sm:py-5 md:-right-8">
             <p className="font-display text-3xl">24/7</p>
             <p className="text-xs uppercase tracking-widest text-primary-foreground/75">Online banking</p>
           </div>
-        </div>
-        <div>
+        </Reveal>
+        <Reveal delay={150}>
           <SectionHead eyebrow="About us" title="We're reimagining digital banking" text="Universal Crest is committed to making banking simpler, more transparent and more human — for individuals and businesses alike." />
           <div className="mt-10 space-y-6">
             {[
@@ -100,12 +126,13 @@ function Index() {
             ))}
           </div>
           <Button className="mt-10" size="lg" asChild><Link to="/personal">Learn more</Link></Button>
-        </div>
+        </Reveal>
       </section>
 
       {/* Tools */}
       <section className="bg-secondary py-16 sm:py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <Reveal>
           <SectionHead center eyebrow="Popular tools" title="Set up and exchange money in a minute" />
           <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {tools.map((t) => (
@@ -117,11 +144,13 @@ function Index() {
               </div>
             ))}
           </div>
+          </Reveal>
         </div>
       </section>
 
       {/* Global market stories */}
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
+        <Reveal>
         <SectionHead eyebrow="Covering the global market" title="Payments that drive growth" text="Higher payment success rates, lower costs, stronger fraud protection and access to global markets." />
         <div className="mt-14 grid gap-8 md:grid-cols-3">
           {stories.map((s) => (
@@ -135,10 +164,12 @@ function Index() {
             </article>
           ))}
         </div>
+        </Reveal>
       </section>
 
       {/* Why choose us */}
       <section className="bg-ink py-16 sm:py-24">
+        <Reveal>
         <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 sm:px-6 md:grid-cols-2 md:gap-14">
           <div>
             <SectionHead light eyebrow="Why choose us" title="Innovative, digital and always secure" text="We use data and technology to simplify banking — so you spend less time managing money and more time growing it." />
@@ -153,10 +184,12 @@ function Index() {
             <img src={loans} alt="" loading="lazy" width={1280} height={960} className="mt-10 aspect-square w-full rounded-xl object-cover" />
           </div>
         </div>
+        </Reveal>
       </section>
 
       {/* Benefits */}
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
+        <Reveal>
         <SectionHead center eyebrow="Your benefits" title="Your one-stop digital banking platform" />
         <div className="mt-10 grid grid-cols-2 gap-3 sm:mt-14 sm:gap-6 md:grid-cols-3 lg:grid-cols-6">
           {benefits.map((b) => (
@@ -166,11 +199,13 @@ function Index() {
             </div>
           ))}
         </div>
+        </Reveal>
       </section>
 
       {/* Exchange rates */}
       <section aria-labelledby="exchange-heading" className="bg-market py-16 font-sans text-market-foreground sm:py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <Reveal>
           <div className="max-w-3xl">
             <p className="text-[11px] font-extrabold uppercase text-market-primary">Exchange rates</p>
             <h2 id="exchange-heading" className="mt-4 font-market text-3xl font-extrabold leading-tight sm:text-4xl md:text-5xl">Exchange money worldwide<br className="hidden sm:block" /> with low fees</h2>
@@ -193,11 +228,13 @@ function Index() {
               </tbody>
             </table>
           </div>
+          </Reveal>
         </div>
       </section>
 
       {/* Testimonials */}
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
+        <Reveal>
         <SectionHead center eyebrow="Testimonials" title="What our customers say" />
         <div className="mt-14 grid gap-6 md:grid-cols-3">
           {testimonials.map((t) => (
@@ -208,6 +245,7 @@ function Index() {
             </figure>
           ))}
         </div>
+        </Reveal>
       </section>
 
       <CtaBand />

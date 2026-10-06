@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
-import { Lock, ShieldCheck, Headphones, BadgeCheck } from "lucide-react";
+import { Landmark, Lock, ShieldCheck, Headphones, BadgeCheck } from "lucide-react";
 import hero from "@/assets/hero.jpg";
 import { useSiteSettings } from "@/lib/site-settings";
 
@@ -9,10 +9,10 @@ export function Logo({ light = false, slot = "logo" }: { light?: boolean; slot?:
   const img = s.assets[slot] ?? s.assets.logo;
   const name = (slot === "logo" && s.header.title) || s.general.siteName;
   return (
-    <Link to="/" className={`flex min-w-0 items-center gap-2 ${light ? "text-ink-foreground" : "text-foreground"}`}>
+    <Link to="/" className={`group flex min-w-0 items-center gap-2.5 ${light ? "text-ink-foreground" : "text-foreground"}`}>
       {img ? <img src={img} alt="" className="h-8 w-auto max-w-[120px] shrink-0 object-contain" />
-        : <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full border border-current font-display">{s.branding.logoText || name.charAt(0)}</span>}
-      <span className="truncate font-display text-lg sm:text-xl">{name}</span>
+        : <span className="grid h-9 w-9 shrink-0 place-items-center rounded-sm bg-gold text-ink shadow-md transition-transform duration-500 group-hover:rotate-6"><Landmark className="h-5 w-5" strokeWidth={2.2} /></span>}
+      <span className="truncate font-display text-lg tracking-tight sm:text-xl">{name}</span>
     </Link>
   );
 }
