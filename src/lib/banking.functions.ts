@@ -12,6 +12,10 @@ async function uid() {
   const { requireUserId } = await import("./session.server");
   return requireUserId();
 }
+async function kycUid() {
+  const { requireVerifiedUserId } = await import("./session.server");
+  return requireVerifiedUserId();
+}
 async function lib() {
   return import("./banking.server");
 }
@@ -422,7 +426,7 @@ export const deleteBeneficiary = createServerFn({ method: "POST" })
 
 // ---------------- Receive ----------------
 export const getReceiveDetails = createServerFn({ method: "GET" }).handler(async () => {
-  const userId = await uid();
+  const userId = await kycUid();
   const sql = await db();
   const holder = (await sql`select full_name from bank_users where id = ${userId}`)[0].full_name as string;
   const rows = await sql`select id, nickname, account_type, currency, account_number, status from bank_accounts
@@ -583,7 +587,7 @@ function maskName(name: string) {
 export const lookupRecipient = createServerFn({ method: "POST" })
   .inputValidator((d) => z.object({ accountNumber: acctNo, fromAccountId: id.optional() }).parse(d))
   .handler(async ({ data }) => {
-    const userId = await uid();
+    const userId = await kycUid();
     const sql = await db();
     const r = (await sql`select a.id, a.currency, a.status, a.account_type, u.full_name, u.status as user_status
       from bank_accounts a join bank_users u on u.id = a.user_id where a.account_number = ${data.accountNumber}`)[0];
@@ -608,7 +612,7 @@ export const sendMoney = createServerFn({ method: "POST" })
     idempotencyKey: z.string().min(8).max(100),
   }).parse(d))
   .handler(async ({ data }) => {
-    const userId = await uid();
+    const userId = await kycUid();
     if (data.amount <= 0n) return fail("Enter an amount greater than zero.");
     if (data.amount > 100000000n) return fail("Transfers are limited to 1,000,000.00 per transaction.");
     if (!(await verifyPin(userId, data.pin))) return fail("Incorrect PIN.");
@@ -728,7 +732,7 @@ const externalSchema = z.discriminatedUnion("kind", [
 export const sendExternal = createServerFn({ method: "POST" })
   .inputValidator((d) => externalSchema.parse(d))
   .handler(async ({ data }) => {
-    const userId = await uid();
+    const userId = await kycUid();
     if (data.amount <= 0n) return fail("Enter an amount greater than zero.");
     if (data.amount > 100000000n) return fail("Transfers are limited to 1,000,000.00 per transaction.");
     if (!(await verifyPin(userId, data.pin))) return fail("Incorrect PIN.");
@@ -798,7 +802,7 @@ async function fxRate(from: string, to: string) {
 export const getFxQuote = createServerFn({ method: "POST" })
   .inputValidator((d) => z.object({ from: CURRENCY, to: CURRENCY }).parse(d))
   .handler(async ({ data }) => {
-    await uid();
+    await kycUid();
     try { return { ok: true as const, rate: await fxRate(data.from, data.to), at: new Date().toISOString() }; }
     catch (e) { return fail((e as Error).message); }
   });
@@ -811,7 +815,7 @@ export const convertCurrency = createServerFn({ method: "POST" })
     idempotencyKey: z.string().min(8).max(100),
   }).parse(d))
   .handler(async ({ data }) => {
-    const userId = await uid();
+    const userId = await kycUid();
     if (data.amount <= 0n) return fail("Enter an amount greater than zero.");
     if (data.amount > 100000000n) return fail("Conversions are limited to 1,000,000.00 per transaction.");
     if (data.fromAccountId === data.toAccountId) return fail("Choose two different accounts.");

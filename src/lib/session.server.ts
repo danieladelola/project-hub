@@ -31,3 +31,19 @@ export async function requireAdminId(): Promise<number> {
   if (!rows[0]) throw new Error("Forbidden");
   return id;
 }
+
+export const KYC_REQUIRED_MESSAGE = "Identity verification required. Complete your KYC and wait for approval to use this feature.";
+
+export async function isKycVerified(sql: any, userId: number): Promise<boolean> {
+  const app = (await sql`select status from bank_kyc_applications where user_id = ${userId} order by created_at desc limit 1`)[0];
+  if (app) return app.status === "verified";
+  const u = (await sql`select kyc_status from bank_users where id = ${userId}`)[0];
+  return u?.kyc_status === "verified";
+}
+
+/** Signed-in user whose KYC has been approved by an admin. */
+export async function requireVerifiedUserId(): Promise<number> {
+  const userId = await requireUserId();
+  if (!(await isKycVerified(await db(), userId))) throw new Error(KYC_REQUIRED_MESSAGE);
+  return userId;
+}

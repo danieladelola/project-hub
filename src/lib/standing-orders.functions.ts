@@ -4,8 +4,8 @@ import bcrypt from "bcryptjs";
 import { db } from "./db.server";
 
 async function uid() {
-  const { requireUserId } = await import("./session.server");
-  return requireUserId();
+  const { requireVerifiedUserId } = await import("./session.server");
+  return requireVerifiedUserId();
 }
 const fail = (error: string) => ({ ok: false as const, error });
 
